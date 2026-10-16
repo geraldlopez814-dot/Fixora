@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FixFinder | Appliance Repair Services</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar">
+  <a class="logo" href="#">🔧 FixFinder</a>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#technicians">Find Technicians</a>
+    <a href="#requests">My Requests</a>
+  </nav>
+  <button class="btn" onclick="showRequestForm()">Book a Repair</button>
+</header>
+
+<section class="hero" id="home">
+  <div class="hero-content">
+    <span class="eyebrow">HOUSEHOLD REPAIR MADE EASY</span>
+    <h1>Find the right technician for your home.</h1>
+    <p>Discover appliance repair professionals and check
+       their availability before booking a service.</p>
+
+    <form id="searchForm" class="search-box">
+      <input id="searchInput" type="search"
+        placeholder="Search washing machine, refrigerator..."
+        aria-label="Search technicians and appliances">
+      <button class="btn" type="submit">Search</button>
+    </form>
+
+    <div class="hero-stats">
+      <span>✓ Easy technician search</span>
+      <span>✓ Availability monitoring</span>
+      <span>✓ Simple repair requests</span>
+    </div>
+  </div>
+</section>
+
+<main>
+  <section class="section" id="technicians">
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">OUR SERVICE PROVIDERS</span>
+        <h2>Find a technician</h2>
+        <p>Choose a professional based on your repair needs.</p>
+      </div>
+      <span class="result-count" id="resultCount"></span>
+    </div>
+
+    <div class="filters">
+      <input id="locationFilter" type="text"
+        placeholder="Filter by location...">
+
+      <select id="applianceFilter" aria-label="Filter by appliance">
+        <option value="">All appliances</option>
+        <option value="Refrigerator">Refrigerator</option>
+        <option value="Washing Machine">Washing Machine</option>
+        <option value="Air Conditioner">Air Conditioner</option>
+        <option value="Microwave">Microwave</option>
+        <option value="Television">Television</option>
+      </select>
+
+      <select id="statusFilter" aria-label="Filter by availability">
+        <option value="">All statuses</option>
+        <option value="Available">Available</option>
+        <option value="Busy">Busy</option>
+        <option value="Offline">Offline</option>
+      </select>
+    </div>
+
+    <div id="technicianList" class="technician-grid"></div>
+    <p id="emptyMessage" class="empty hidden">
+      No technicians match your search. Try another filter.
+    </p>
+  </section>
+
+  <section class="availability-banner">
+    <div>
+      <span class="eyebrow">REAL-TIME STATUS DEMO</span>
+      <h2>Know who's ready to help.</h2>
+      <p>Technician availability is displayed on each service card.</p>
+    </div>
+    <div class="status-legend">
+      <span><i class="dot available"></i> Available</span>
+      <span><i class="dot busy"></i> Busy</span>
+      <span><i class="dot offline"></i> Offline</span>
+    </div>
+  </section>
+
+  <section class="section requests-section" id="requests">
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">SERVICE MANAGEMENT</span>
+        <h2>Repair requests</h2>
+        <p>Review the repair requests submitted from this browser.</p>
+      </div>
+      <button class="btn" onclick="showRequestForm()">
+        + New Request
+      </button>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Request ID</th>
+            <th>Customer</th>
+            <th>Appliance</th>
+            <th>Technician</th>
+            <th>Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="requestList"></tbody>
+      </table>
+    </div>
+    <p id="noRequests" class="empty">
+      No repair requests yet. Book a technician to get started.
+    </p>
+  </section>
+
+  <section class="section about">
+    <span class="eyebrow">HOW IT WORKS</span>
+    <h2>Repair service in three steps</h2>
+    <div class="steps">
+      <article><span>01</span><h3>Search</h3>
+        <p>Find a technician who repairs your appliance.</p></article>
+      <article><span>02</span><h3>Check</h3>
+        <p>Review their service area and availability status.</p></article>
+      <article><span>03</span><h3>Request</h3>
+        <p>Submit your details and preferred repair date.</p></article>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <a class="logo" href="#">🔧 FixFinder</a>
+  <p>Household Appliance Repair Service Provider Finder</p>
+  <small>Academic project prototype</small>
+</footer>
+
+<!-- Repair request modal -->
+<div class="modal hidden" id="requestModal"
+     role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-content">
+    <button class="close" onclick="closeRequestForm()"
+      aria-label="Close form">&times;</button>
+    <span class="eyebrow">BOOK A SERVICE</span>
+    <h2 id="modalTitle">Repair request form</h2>
+
+    <form id="bookingForm">
+      <label for="customerName">Full name</label>
+      <input id="customerName" required maxlength="100"
+        placeholder="Enter your full name">
+
+      <label for="customerPhone">Contact number</label>
+      <input id="customerPhone" type="tel" required
+        maxlength="30" placeholder="Enter your phone number">
+
+      <label for="bookingAppliance">Appliance</label>
+      <select id="bookingAppliance" required>
+        <option value="">Select an appliance</option>
+        <option>Refrigerator</option>
+        <option>Washing Machine</option>
+        <option>Air Conditioner</option>
+        <option>Microwave</option>
+        <option>Television</option>
+      </select>
+
+      <label for="bookingTechnician">Technician</label>
+      <select id="bookingTechnician" required>
+        <option value="">Select a technician</option>
+      </select>
+
+      <label for="bookingDate">Preferred date</label>
+      <input id="bookingDate" type="date" required>
+
+      <label for="customerAddress">Service address</label>
+      <textarea id="customerAddress" required maxlength="300"
+        placeholder="Enter your address"></textarea>
+
+      <label for="problemDescription">Describe the problem</label>
+      <textarea id="problemDescription" required maxlength="1000"
+        placeholder="Describe the appliance problem"></textarea>
+
+      <button class="btn submit-btn" type="submit">
+        Submit Repair Request
+      </button>
+      <p id="formMessage" role="status"></p>
+    </form>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
